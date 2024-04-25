@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SHOPPING CART</title>
+    <!-- own css file link -->
+    <link rel="stylesheet" href="css/cart.css" />
+    <!-- own css navbar file -->
+    <link rel="stylesheet" href="css/navbar.css" />
+    <!-- own colour css file -->
+    <link rel="stylesheet" href="css/colour.css" />
+    <!-- fontawesome css file -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+    <!-- google font poppin's link -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,300;0,400;0,500;0,700;0,800;0,900;1,500;1,600;1,700;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- favicon link -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.png" />
+  </head>
+
+  <body>
+    <!-- header starts here -->
+    <%- include("common/header") %> 
+
+    <!-- home section starts here -->
+    <section id="home">
+      <div class="content">
+        <h1>SHOPPING CART</h1>
+        <div class="link"><a href="/">Home</a> / <span>cart</span></div>
+      </div>
+    </section>
+
+    <!-- product section starts here -->
+    <section id="products">
+      <h1 class="heading">PRODUCTS ADDED</h1>
+      <div class="container"></div>
+      <div
+        class="no-products-message"
+        style="
+          text-align: center;
+          display: none;
+          width: 100%;
+          padding: 20px;
+          border-radius: 5px;
+          background: crimson;
+          color: white;
+          font-size: 25px;
+        "
+      >
+        No products added to cart.
+      </div>
+      <div class="delete">
+        <button class="btn deleteAllBtn">Delete All</button>
+      </div>
+    </section>
+
+    <!-- cost section starts here -->
+    <section id="cost">
+      <div class="total">
+        <p>grand total : <span class="grand-total">$0/-</span></p>
+        <a href="/shop"
+          ><button class="btn continue" type="button">
+            Continue Shopping
+          </button></a
+        >
+        <a href="/checkout"
+          ><button class="btn checkout-btn">Proceed To Checkout</button></a
+        >
+      </div>
+    </section>
+
+    <!-- footer starts here -->
+    <%- include('common/footer') %>
+
+    <!-- own js file link  -->
+    <script src="js/script.js"></script>
+    <script>
+      const noProductsMessage = document.querySelector(
+          ".no-products-message"
+        )
+      if(logoutBtn!= null){
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const deleteAllButton = document.querySelector(".deleteAllBtn");
+        const grandTotalElement = document.querySelector(".grand-total");
+        
+
+        function updateCartNumber() {
+          const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+          const cartNumber = cartItems.reduce(
+            (total, item) => total + item.quantity,
+            0
+          );
+          document.querySelector(".cart").textContent = cartNumber;
+        }
+
+        // Function to calculate the total cost
+        function calculateTotalCost() {
+          updateCartNumber();
+          let total = 0;
+          document.querySelectorAll(".cart-item").forEach((item) => {
+            const filteredPrice = item
+              .getAttribute("data-price")
+              .split(",")
+              .join("");
+            const price = parseInt(filteredPrice);
+            const quantity = parseInt(item.querySelector(".quantity").value);
+            total += price * quantity;
+          });
+          grandTotalElement.textContent = `₹${total}/-`;
+        }
+        
+  
+
+        // Function to generate HTML for each product in the cart
+        function renderCartItem(
+          productId,
+          title,
+          price,
+          quantity,
+          productImage
+        ) {
+          const container = document.querySelector(".container");
+          const card = document.createElement("div");
+          card.classList.add("card", "cart-item");
+          card.setAttribute("data-product-id", productId);
+          card.setAttribute("data-price", price);
+          card.innerHTML = `
+              <div class="img">
+                      <img src="${productImage}" alt="">
+                      <span>$${price}/-</span>
+                  </div>
+                  <p class="title">${title}</p>
+                  <input type="number" class="quantity" min="1" value="${quantity}">
+                 <div style="display:flex;gap:5px;">
+                  <button type="button" class="btn update-btn" style="background:blue">update</button>
+                  <button style="background:crimson;" type="button" class="btn delete-btn">Delete</button>
+                  </div>
+              `;
+          container.appendChild(card);
+        }
+
+        // Retrieve cart items from local storage
+        const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+        if (cartItems.length !=0) {
+          cartItems.forEach((item) => {
+            renderCartItem(
+              item.productId,
+              item.title,
+              item.price,
+              item.quantity,
+              item.productImage
+            );
+          });
+        } 
+
+        // Add event listener for deleting all items from cart
+        deleteAllButton.addEventListener("click", function () {
+          // Clear local storage
+          
+          localStorage.removeItem("cartItems");
+          // Remove all cart items from UI
+          document.querySelector(".container").innerHTML = "";
+          // Reset total cost
+          grandTotalElement.textContent = "$0/-";
+          noProductsMessage.style.display = 'block'
+          updateCartNumber();
+        });
+
+        // Calculate total cost initially
+        calculateTotalCost();
+
+        function updateCartItemQuantity(cardElement) {
+          const productId = cardElement.getAttribute("data-product-id");
+          const updatedQuantity = parseInt(
+            cardElement.querySelector(".quantity").value
+          );
+
+          // Update the cart item in local storage
+          let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+          cartItems = cartItems.map((item) => {
+            if (item.productId === productId) {
+              item.quantity = updatedQuantity;
+            }
+            return item;
+          });
+          localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+          // Recalculate total cost
+          calculateTotalCost();
+        }
+
+        // Function to delete cart item
+        function deleteCartItem(cardElement) {
+          const productId = cardElement.getAttribute("data-product-id");
+
+          // Remove the cart item from local storage
+          let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+          cartItems = cartItems.filter((item) => item.productId !== productId);
+          localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+          // Remove the cart item from UI
+          cardElement.remove();
+
+          // Recalculate total cost
+          calculateTotalCost();
+
+          // Show no products message if cart is empty
+          if (cartItems.length === 0) {
+            noProductsMessage.style.display = "block";
+          }
+        }
+
+        // Add event listeners for update and delete buttons
+        document.querySelectorAll(".update-btn").forEach((button) => {
+          button.addEventListener("click", function () {
+            const cardElement = button.closest(".cart-item");
+            updateCartItemQuantity(cardElement);
+          });
+        });
+
+        document.querySelectorAll(".delete-btn").forEach((button) => {
+          button.addEventListener("click", function () {
+            const cardElement = button.closest(".cart-item");
+            deleteCartItem(cardElement);
+          });
+        });
+      });
+
+      
+        // Add event listener to validate quantity input boxes
+        let Quantities = document.querySelectorAll('.quantity');
+        Quantities.forEach(function (input) {
+            input.addEventListener("change", function (event) {
+                alert("value is changing")
+                const value = parseInt(event.target.value);
+            if (isNaN(value) || value <= 0) {
+              event.target.value = 1; // Reset value to 1 if it's not valid
+            }
+          });
+        });
+      }
+      else{
+        noProductsMessage.style.display='block';
+      }
+
+    </script>
+  </body>
+</html>

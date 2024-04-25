@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="/css/dash.css">
+    <script src="/js/dash.js"></script>
+     
+    <!----===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <title>Admin Dashboard Panel</title> 
+    <style>
+        .dashboard{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box{
+            padding: 20px;
+            border-radius: 5px;
+            
+            width: 350px;
+            border: 2px solid #ccc;
+            background: white;
+        }
+        .box h2{
+            color:crimson;
+            text-align: center;
+        }
+
+        .box p{
+            text-align: center;
+            font-size: 35px;
+            margin-top:15px;
+        }
+    </style>
+</head>
+<body>
+   
+    <%- include('./common/sidebar') %>
+
+    <section class="dashboard">
+      <div class="box">
+        <h2>Total products</h2>
+        <P><%= totalProducts %></P>
+      </div>
+        
+       
+    </section>
+
+    <script src="js/dash.js"></script>
+</body>
+</html>

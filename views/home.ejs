@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- own css main file -->
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- own css navbar file -->
+    <link rel="stylesheet" href="css/navbar.css" />
+    <!-- own colour css file -->
+    <link rel="stylesheet" href="css/colour.css" />
+    <!-- fontawesome css file -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+    <!-- google font poppin's link -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,300;0,400;0,500;0,700;0,800;0,900;1,500;1,600;1,700;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- favicon link -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.png" />
+    <!-- title -->
+    <title>HOME</title>
+  </head>
+
+  <body>
+    <!-- header starts here -->
+    <%- include("common/header") %>
+
+    <!-- home section starts here -->
+    <section id="home">
+      <img src="images/home.jpg" class="home-bg" alt="error" />
+      <div class="content">
+        <h1>Discover Your Perfect Purchase.</h1>
+        <p>
+          Discover Luxury Seating Solutions,Browse our diverse range of chairs,
+          from classic designs to modern favorites, all crafted with quality
+          materials.
+        </p>
+        <a href="/shop"
+          ><button class="btn" type="button">Discover More</button></a
+        >
+      </div>
+    </section>
+
+    <!-- product section starts here -->
+    <section id="products">
+      <h1>LATEST PRODUCTS</h1>
+      <div class="container">
+        <!-- first set of card is here (one set contains 3 cards) -->
+
+        <% for(i=products.length - 1;i>=products.length-9;i--){ %>
+        <div class="card">
+          <div class="img">
+            <img src="product-image/<%= products[i].image %>" alt="" />
+            <span>₹<%= products[i].price %>/-</span>
+          </div>
+          <a href="/shop">
+            <p class="title"><%= products[i].name %></p>
+          </a>
+        </div>
+        <% } %>
+      </div>
+      <div class="learnmore">
+        <a href="/shop"><button type="button">Learn more</button></a>
+      </div>
+    </section>
+
+    <!-- about section starts here -->
+    <section id="about">
+      <div class="container">
+        <div class="img">
+          <img src="images/about.jpg" alt="error" />
+        </div>
+
+        <div class="content">
+          <div>
+            <h1>ABOUT US</h1>
+            <p>
+              Welcome to <b>Talle Furniture Mart</b>, where we believe that
+              seating is more than just furniture—it's a reflection of your
+              style, comfort, and lifestyle. We are passionate about providing
+              exceptional chairs that elevate every space with elegance and
+              functionality.
+            </p>
+            <a href="/about"><button class="btn">Read More</button></a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="question">
+      <div class="container">
+        <h1>HAVE ANY QUESTIONS?</h1>
+        <p>If you have any doubt or questions so please contact us.</p>
+        <a href="/contact"
+          ><button class="btn" type="button">Contact Us</button></a
+        >
+      </div>
+    </section>
+
+    <%- include('./common/footer') %>
+
+    <!-- own js file link -->
+    <script src="js/script.js"></script>
+  </body>
+</html>

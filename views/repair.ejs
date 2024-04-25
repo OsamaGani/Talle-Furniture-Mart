@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- own css navbar file -->
+    <link rel="stylesheet" href="css/navbar.css" />
+    <!-- own colour css file -->
+    <link rel="stylesheet" href="css/colour.css" />
+    <link rel="stylesheet" href="css/about.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- fontawesome css file -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+    <!-- google font poppin's link -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,300;0,400;0,500;0,700;0,800;0,900;1,500;1,600;1,700;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- favicon link -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.png" />
+    <title>Repair Services</title>
+  </head>
+  <body>
+    <%- include("common/header") %>
+    <section id="home">
+      <img src="images/customizechair/bg.webp" class="home-bg" alt="error" />
+      <div class="content">
+        <h1>Renew Your Chairs with Expert Repair Services!</h1>
+        <p>
+          We specialize in expert chair repair, from minor fixes to complete
+          refurbishments. Trust our skilled craftsmen to revitalize your beloved
+          furniture. Reach out to us and schedule a repair!"
+        </p>
+      </div>
+      
+    </section>
+    <section id="choose-us">
+      <div class="container">
+        <div class="img">
+          <img src="images/customizechair/repairBg.jpg" alt="" />
+        </div>
+        <div class="content">
+          <h1>WHY CHOOSE US?</h1>
+          <p>
+            Welcome to <b>Talle Furniture Mart</b>, where we specialize in revitalizing
+            your favorite chairs. From worn-out upholstery to wobbly legs, our
+            expert craftsmen are here to restore comfort and style to your
+            seating. Discover how we can bring new life to your cherished
+            chairs. 
+          </p>
+          <p>
+            Trust our platform for consistent performance and user-friendly.
+            Contact us today for a consultation!
+            
+          </p>
+          <a href="/contact"
+            ><button class="btn" type="button">Contact Us</button></a>
+        
+      </div>
+    </section>
+    <%-include("common/footer") %>
+    <script src="js/script.js"></script>
+  </body>
+</html>

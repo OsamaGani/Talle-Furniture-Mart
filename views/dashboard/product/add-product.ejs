@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/colour.css" />
+    <link rel="stylesheet" href="/css/dash.css" />
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <title>Add-products page</title>
+    <style>
+
+      .dashboard{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+      }
+      form {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        border-radius: 3px;
+        width: 450px;
+        position: relative;
+      }
+
+      form h1 {
+        font-size: 25px;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      form input {
+        width: 100%;
+        margin-bottom: 15px;
+        height: 45px;
+        padding-inline: 5px;
+        border-radius: 5px;
+        border: 2px solid grey;
+        font-size: 15px;
+      }
+
+      form .button {
+        text-align: center;
+      }
+
+      form input[type="submit"] {
+        width: 150px;
+        height: 40px;
+        border: none;
+        background: var(--blueviolet);
+        color: white;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      form input[type="submit"]:hover {
+        background: var(--btnHover);
+      }
+      form .register {
+        text-align: center;
+      }
+
+      form .register span {
+        margin-right: 3px;
+      }
+
+      form .register a {
+        text-decoration: none;
+        color: var(--blueviolet);
+        transition: all 0.3s ease;
+      }
+
+      form .register a:hover {
+        text-decoration: underline;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <%- include("../common/sidebar") %>
+
+    <section class="dashboard">
+      <form action="/products" method="post" enctype="multipart/form-data">
+        <h1> ADD PRODUCTS </h1>
+        <input
+          type="text"
+          name="name"
+          placeholder="Enter Product Name"
+          required
+        />
+        <input class="password"
+          type="text"
+          name="price"
+          placeholder="Enter Product price"
+          required
+          id="password"
+        />
+        <input class="password"
+        type="file"
+        name="productImage"
+        required
+        id="password"
+      />
+       
+       
+        <div class="button">
+          <input type="submit" value="Submit Now" />
+        </div>
+       
+      </form>
+    </section>
+  </body>
+</html>

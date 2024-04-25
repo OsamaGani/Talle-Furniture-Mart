@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SEARCH SOMETHING</title>
+    <!-- own css file link -->
+    <link rel="stylesheet" href="css/search.css" />
+    <!-- own css navbar file -->
+    <link rel="stylesheet" href="css/navbar.css" />
+    <!-- own colour css file -->
+    <link rel="stylesheet" href="css/colour.css" />
+    <!-- fontawesome css file -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+    <!-- google font poppin's link -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,300;0,400;0,500;0,700;0,800;0,900;1,500;1,600;1,700;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- favicon link -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.png" />
+  </head>
+
+  <body>
+    <!-- header starts here -->
+    <%- include("common/header") %>
+    <!-- navbar starts here -->
+
+    <!-- home section starts here -->
+    <section id="home">
+      <div class="content">
+        <h1>SEARCH PAGE</h1>
+        <div class="link">
+          <a href="/">Home</a> / <span>search</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- search section starts here -->
+    <section id="search">
+      <div class="search">
+        <input type="search" id="searchQuery" placeholder="Search Products" />
+        <button type="button" class="btn" onclick="search()">Search</button>
+      </div>
+      <div class="box">SEARCH SOMETHING!</div>
+    </section>
+
+    <!-- footer starts here -->
+    <%- include("common/footer")%>
+
+    <!-- copyright starts here -->
+
+    <!-- own js file link  -->
+    <script src="script.js"></script>
+
+    <script>
+      function search() {
+        var searchQuery = document.getElementById("searchQuery").value;
+        window.location.href ="/shop?q=" + encodeURIComponent(searchQuery);
+      }
+    </script>
+  </body>
+</html>

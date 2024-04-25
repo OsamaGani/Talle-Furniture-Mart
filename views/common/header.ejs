@@ -1,0 +1,134 @@
+<header>
+  <div class="icons">
+    <a href="https://www.facebook.com/profile.php?id=100059886098311"
+      ><i class="fa-brands fa-facebook-f icon"></i
+    ></a>
+    <a href="https://twitter.com"><i class="fa-brands fa-twitter icon"></i></a>
+    <a href="https://www.instagram.com/__osm03____?igsh=eW1oOW12a3N2ODRx"
+      ><i class="fa-brands fa-instagram icon"></i
+    ></a>
+    <a
+      href="https://www.linkedin.com/in/osama-gani-074435269?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+      ><i class="fa-brands fa-linkedin-in icon"></i
+    ></a>
+  </div>
+  <div class="user">
+    <% if(isLoggedIn == true){ %>
+    <button type="button" class="btn logout-btn">Logout</button>
+    <% }else{ %>
+    <a href="/login">login |</a><a href="/register"> register </a>
+    <% } %>
+  </div>
+</header>
+
+<!-- navbar starts here -->
+<div class="navbar">
+  <div class="logo">
+    <span>Talle Furniture</span>
+  </div>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <span class="dropdown">
+      <a href="#" class="angledown"
+        >Services <i class="fa-solid fa-angle-down"></i
+      ></a>
+      <div class="dropdown-content">
+        <a href="/woodenChair">WoodenChair</a>
+        <a href="/dinnerTable">dinnertable</a>
+        <a href="/customizeChair">Customize Chair</a>
+        <a href="/repair">Repair Services</a>
+        <!-- Other Product Actions -->
+      </div>
+    </span>
+    <a href="/shop">Shop</a>
+    <a href="/contact">Contact</a>
+    <a href="/order">Order</a>
+  </nav>
+  <div class="icons">
+    <div class="menu-bar">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+    <a href="/search"><i class="fa-solid fa-magnifying-glass icon"></i></a>
+    <a href="/contact"> <i class="fa-solid fa-user icon"></i></a>
+    <span>
+      <a href="cart"><i class="fa-solid fa-cart-shopping icon icon-3"></i></a>
+      <span>(<span class="cart">0</span>)</span>
+    </span>
+  </div>
+</div>
+
+<script>
+  const logoutBtn = document.querySelector(".logout-btn");
+  if (logoutBtn) {
+    logoutBtn.onclick = () => {
+      fetch("/logout", {
+        method: "post",
+        body: JSON.stringify({ message: "logout" }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((result) => {
+          console.log(result);
+          if (result.message == "success") {
+            location.href = "/";
+            // location.href = '/login'
+          }
+        });
+    };
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    // Function to update the cart number in the header
+    function updateCartNumber() {
+      if (logoutBtn != null) {
+        const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+        const cartNumber = cartItems.reduce(
+          (total, item) => total + item.quantity,
+          0
+        );
+        document.querySelector(".cart").textContent = cartNumber;
+      }
+    }
+
+    // Update cart number initially
+    updateCartNumber();
+
+    // Listen for changes in the cart items and update the cart number accordingly
+    window.addEventListener("storage", function (event) {
+      if (event.key === "cartItems") {
+        updateCartNumber();
+      }
+    });
+    // const deleteAllButton = document.querySelector('.logout-btn');
+    // deleteAllButton.addEventListener("click", function () {
+    //       // Clear local storage
+
+    //       localStorage.removeItem("cartItems");
+    //       // Remove all cart items from UI
+    //       document.querySelector(".container").innerHTML = "";
+    //       // Reset total cost
+    //       grandTotalElement.textContent = "$0/-";
+    //       noProductsMessage.style.display = 'block';
+    //       window.location.href = "/home";
+    //       updateCartNumber();
+    //     });
+  });
+  const removeItem = document.querySelector(".logout-btn");
+  removeItem.addEventListener("click", function () {
+    // Clear local storage
+
+    localStorage.removeItem("cartItems");
+    // Remove all cart items from UI
+    document.querySelector(".container").innerHTML = "";
+    // Reset total cost
+    grandTotalElement.textContent = "$0/-";
+    noProductsMessage.style.display = "block";
+    updateCartNumber();
+  });
+</script>
+<script src="js/drop.js"></script>
